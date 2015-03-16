@@ -1,0 +1,8 @@
+[fedora]
+name=Distrato
+failovermethod=priority
+# baseurl=http://192.168.124.1:7486
+baseurl=http://127.0.0.1:7486
+enabled=1
+priority=1
+gpgcheck=0
