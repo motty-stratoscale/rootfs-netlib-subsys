@@ -24,8 +24,7 @@ $(ROOTFS):
 	sudo mkdir $(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)
 
 	sudo -E solvent bring --repositoryBasename=strato-kmods --product=rpms --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)strato-kmods
-	sudo -E solvent bring --repositoryBasename=noded --product=rpm --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)noded
-	sudo -E solvent bring --repositoryBasename=consul-pkg --product=rpm --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)consul
+	sudo -E solvent bring --repositoryBasename=openstackapi --product=rpms --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)openstackapi
 	sudo -E solvent bring --repositoryBasename=loggingtools --product=rpm --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)log
 	
 
