@@ -36,6 +36,8 @@ $(ROOTFS):
 	# Disable consul and noded we will start them manually after we intialize answer file during the test
 	sudo rm $(ROOTFS_TMP)/etc/systemd/system/multi-user.target.wants/consul.service -f
 	sudo rm $(ROOTFS_TMP)/etc/systemd/system/multi-user.target.wants/strato-noded.service -f
+	sudo echo -e "port=0" | sudo tee --append  $(ROOTFS_TMP)/etc/dnsmasq.conf
+
 
 	sudo -E PYTHONPATH=py/:. python main.py $(ROOTFS_TMP)
 	sudo mv $(ROOTFS_TMP) $(ROOTFS)
