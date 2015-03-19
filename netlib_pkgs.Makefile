@@ -1,6 +1,6 @@
 NETLIB_RPMS = \
-	consul/consul*.rpm\
-	noded/strato-noded*.rpm\
+	openstackapi/consul*.rpm\
+	openstackapi/strato-noded*.rpm\
 	strato-kmods/strato-kmods-[^d]*\
 	log/log*.rpm
 
