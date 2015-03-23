@@ -1,6 +1,8 @@
 ROOTFS = build/root
 ROOTFS_TMP = $(ROOTFS).tmp
 PIP_INSTALL_ARGUMENTS = -i http://pip-repo/simple/ --extra-index-url http://mirrors.stratoscale.com.s3-website-us-east-1.amazonaws.com/pip/simple
+DISTRATO_YAMLS = ../distrato-yamls/yamls/pkgmeta/*.yaml
+LOCAL_DISTRATO_YAMLS = build/distrato-yamls
 
 all: $(ROOTFS)
 
@@ -16,7 +18,24 @@ approve:
 clean:
 	sudo rm -fr build
 
-$(ROOTFS):
+distrato_sync:
+	-rm -rf $(LOCAL_DISTRATO_YAMLS)/pkgmeta
+	mkdir -p $(LOCAL_DISTRATO_YAMLS)/pkgmeta
+	cp $(DISTRATO_YAMLS) $(LOCAL_DISTRATO_YAMLS)/pkgmeta/ ; \
+	DISTRATO_INPUT_DIR=$(LOCAL_DISTRATO_YAMLS) ../distrato-runtime-yamls/distrato sync;\
+	
+define install_external_rpms = 
+	@echo "Installing $(EXTERNAL_RPMS_TO_INSTALL)"
+	/usr/bin/sudo ./chroot.sh $(ROOTFS_TMP) sh -c "ls $(EXTERNAL_RPMS_TO_INSTALL) | xargs yum --assumeyes --nogpgcheck localinstall"
+endef 
+
+define wget_external_rpm =
+	@echo "Going to download $1 to $(ROOTFS_TMP)$(EXTERNAL_RPMS_CHROOT_PATH)"
+	sudo wget -P $(ROOTFS_TMP)$(EXTERNAL_RPMS_CHROOT_PATH) $(YUM_CACHE)$1
+	@echo "Downloaded $1 to $(ROOTFS_TMP)$(EXTERNAL_RPMS_CHROOT_PATH)"
+endef
+
+$(ROOTFS): distrato_sync
 #	-sudo mv $(ROOTFS) $(ROOTFS_TMP)
 	echo "Bringing source"
 	-mkdir $(@D)
@@ -27,7 +46,10 @@ $(ROOTFS):
 	sudo -E solvent bring --repositoryBasename=openstackapi --product=rpms --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)openstackapi
 	sudo -E solvent bring --repositoryBasename=loggingtools --product=rpm --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)log
 	
-
+	sudo rm -rf $(ROOTFS_TMP)$(EXTERNAL_RPMS_CHROOT_PATH)
+	sudo mkdir $(ROOTFS_TMP)$(EXTERNAL_RPMS_CHROOT_PATH)
+	$(foreach rpm,$(EXTERNAL_RPMS),$(call wget_external_rpm,$(rpm)))
+	$(call install_external_rpms)
 	sudo ./chroot.sh $(ROOTFS_TMP) sh -c "ls $(NETLIB_RPMS_TO_INSTALL) | xargs yum --assumeyes --nogpgcheck localinstall"
 	sudo rm -rf $(ROOTFS_TMP)/etc/modprobe.d/strato-kmods.conf
 	
@@ -43,6 +65,7 @@ $(ROOTFS):
 
 include python_pkgs.Makefile
 include netlib_pkgs.Makefile
+include external_pkgs.Makefile
 
 ## the code below:
 ## 1. is for testing purposes
