@@ -1,5 +1,5 @@
 requirements:
-- hash: 8558816b19946d05397f4d36a19e392c634d0b81
+- hash: 301f464a726fdfa2ffce43120801bfd4287acc2e
   originURL: https://github.com/Stratoscale/rootfs-runtime-subsys.git
 - hash: cbd924596df55e27d04faee5f84a12e5aea81c09
   originURL: https://github.com/Stratoscale/strato-kmods.git
