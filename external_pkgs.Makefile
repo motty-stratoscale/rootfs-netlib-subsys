@@ -1,5 +1,6 @@
 DISTRATO_RPMS_TO_INSTALL = \
-   
+		python-oslo-messaging \
+		python-oslo-config
 
 YUM_CACHE = http://localhost:1012/
 EXTERNAL_RPMS = \

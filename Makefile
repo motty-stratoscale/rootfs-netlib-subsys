@@ -51,6 +51,7 @@ $(ROOTFS): distrato_sync
 	$(foreach rpm,$(EXTERNAL_RPMS),$(call wget_external_rpm,$(rpm)))
 	$(call install_external_rpms)
 	sudo ./chroot.sh $(ROOTFS_TMP) sh -c "ls $(NETLIB_RPMS_TO_INSTALL) | xargs yum --assumeyes --nogpgcheck localinstall"
+	DISTRATO_ENTRY_POINT=distrato.heplersmain  ../distrato-yamls/distrato runcmd_withlocalhostserver sudo ./chroot.sh $(ROOTFS_TMP) yum install $(DISTRATO_RPMS_TO_INSTALL) --assumeyes
 	sudo rm -rf $(ROOTFS_TMP)/etc/modprobe.d/strato-kmods.conf
 	
 	sudo mkdir -p $(ROOTFS_TMP)/etc/stratoscale
