@@ -22,7 +22,7 @@ distrato_sync:
 	-rm -rf $(LOCAL_DISTRATO_YAMLS)/pkgmeta
 	mkdir -p $(LOCAL_DISTRATO_YAMLS)/pkgmeta
 	cp $(DISTRATO_YAMLS) $(LOCAL_DISTRATO_YAMLS)/pkgmeta/ ; \
-	DISTRATO_INPUT_DIR=$(LOCAL_DISTRATO_YAMLS) ../distrato-runtime-yamls/distrato sync;\
+	DISTRATO_INPUT_DIR=$(LOCAL_DISTRATO_YAMLS) ../distrato-yamls/distrato sync;\
 	
 define install_external_rpms = 
 	@echo "Installing $(EXTERNAL_RPMS_TO_INSTALL)"
