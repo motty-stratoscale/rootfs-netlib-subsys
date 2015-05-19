@@ -1,0 +1,48 @@
+- consul
+- qpidd: [monitored, controller]
+- strato-noded
+- iptables: disabled
+- firewalld: disabled
+- mariadb: [monitored, controller]
+- openvswitch: monitored
+- httpd: [monitored, controller]
+- influxdb: [monitored, controller]
+- libvirtd: monitored
+- collectd: [monitored, watchdogEnabled]
+- lttng-sessiond: monitored
+- ntpd: disabled
+- redis
+- shellinaboxd
+- osmosis: monitored
+- mancala-garbagecollector
+- mancala-management: monitored
+- mancala-storage-client: [monitored, disabled]
+- mancala-storage-server: [monitored, disabled]
+- matkinool: disabled
+- nrad: [monitored, watchdogEnabled]
+- strato-snld: [monitored, watchdogEnabled]
+- strato-logdump: [monitored, watchdogEnabled]
+- openstack-keystone: [ controller, monitored ]
+- neutron-ovs-cleanup
+- neutron-dhcp-agent: [ controller, monitored ]
+- neutron-l3-agent: [ controller, monitored ]
+- neutron-metadata-agent: [ controller, monitored ]
+- neutron-openvswitch-agent: monitored
+- neutron-server: [ controller, monitored ]
+- openstack-nova-api: [ controller, monitored ]
+- openstack-nova-cert: [ controller, monitored ]
+- openstack-nova-consoleauth: [ controller, monitored ]
+- openstack-nova-scheduler: [ controller, monitored ]
+- openstack-nova-conductor: [ controller, monitored ]
+- openstack-nova-compute: monitored
+- openstack-nova-novncproxy: controller
+- openstack-cinder-api: controller
+- openstack-cinder-scheduler: controller
+- openstack-cinder-volume: controller
+- openstack-glance-api: controller
+- openstack-glance-registry: controller
+- strato_loadbalancer: [ monitored, watchdogEnabled, controller ]
+- strato-api: [ monitored, watchdogEnabled, controller ]
+- strato-iodocs: controller
+- imesx: [ monitored, watchdogEnabled, controller ]
+- harbourd: [ monitored, disabled ]
