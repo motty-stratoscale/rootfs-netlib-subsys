@@ -58,18 +58,13 @@ $(ROOTFS): distrato_sync
 	# Disable consul and noded we will start them manually after we intialize answer file during the test
 	sudo rm $(ROOTFS_TMP)/etc/systemd/system/multi-user.target.wants/consul.service -f
 	sudo rm $(ROOTFS_TMP)/etc/systemd/system/multi-user.target.wants/strato-noded.service -f
-	#sudo echo -e "{'Label': 'Goltz', 'ReleaseNotes': 'NetLib Rulezzz', 'Version': '6.6.6.deadbeef'}" | sudo tee --append  $(ROOTFS_TMP)/etc/strato-version.yaml
 	echo "Copying version and release notes"
-	sudo cp ./build/version/strato_version.txt $(ROOTFS_TMP)/etc/
-	sudo cp ./build/version/strato_version.txt $(ROOTFS).tmp/etc/
+	mkdir -p build/version
+	sudo cp deployment/strato_version.txt build/version/strato_version.txt
 	echo "Copying services configuration"
 	sudo cp py/strato/installation/services.yaml $(ROOTFS).tmp/etc/stratoscale/services.yaml
 	sudo -E PYTHONPATH=py/:. python main.py $(ROOTFS_TMP)
 	sudo mv $(ROOTFS_TMP) $(ROOTFS)
-
-version:
-	$(Q)mkdir -p build/version
-	cp deployment/strato_version.txt build/version/
 
 include python_pkgs.Makefile
 include netlib_pkgs.Makefile
