@@ -1,9 +1,9 @@
 requirements:
-- hash: b58bf9df51db2705176291e533e93269e1eb5578
+- hash: bd6d350f6b59323ef216e6f093a59651c5f647d6
   originURL: https://github.com/Stratoscale/rootfs-runtime-subsys.git
-- hash: b8bc920283130760a72fb5e81a1c3d8b696f83c1
+- hash: 670b461d9631b1378e601d1d5a9004dd204bed20 
   originURL: https://github.com/Stratoscale/strato-kmods.git
-- hash: 12b715ea9f8fb28eca6795f1f99be78daf13ebd4
+- hash: e52a99566d5bba9c76e08ad91efd005e46a17b8e
   originURL: https://github.com/Stratoscale/openstackapi.git
 - hash: f4239c797450f526618ea1f382e8e05924951da3
   originURL: https://github.com/Stratoscale/loggingtools.git
