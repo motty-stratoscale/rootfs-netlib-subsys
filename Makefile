@@ -9,9 +9,6 @@ all: $(ROOTFS)
 submit:
 	sudo -E solvent submitproduct --force  rootfs $(ROOTFS)
 
-bezeq_transfer:
-	sudo -E osmosis transfer solvent__rootfs-netlib-subsys__rootfs__$(HASH)__dirty --transferDestination=osmosis.dc1.strato:1010
-
 approve:
 	sudo -E solvent approve --product=rootfs
 
@@ -78,15 +75,20 @@ HASH = $(shell git log -1 | head -1 | cut -f 2 -d ' ')
 unsubmit:
 	-osmosis eraselabel solvent__rootfs-netlib-subsys__rootfs__$(HASH)__dirty
 	-osmosis eraselabel solvent__rootfs-netlib-subsys__rootfs__$(HASH)__dirty --objectStores=osmosis.dc1.strato:1010
-	-osmosis eraselabel solvent__rootfs-netlib-subsys__rootfs__$(HASH)__dirty --objectStores=oberon:1010
 
+RACK_SITE ?= bezeq
+ifeq ("$(RACK_DOMAIN)","")
 # This is temporary, when all servers will be moved to bezeq this will be deprecated
 ifeq ("$(RACK_SITE)","bezeq")
 RACK_DOMAIN := rackattack-provider.dc1.strato
 else
 RACK_DOMAIN := rackattack-provider
 endif
-RACKATTACK_PROVIDER_PHYS = tcp://$(RACK_DOMAIN):1014@tcp://$(RACK_DOMAIN):1015@http://$(RACK_DOMAIN):1016
+endif
+
+RACKATTACK_PROVIDER_PHYS = tcp://$(RACK_DOMAIN):1014@@amqp://guest:guest@$(RACK_DOMAIN):1013/%2F@@http://$(RACK_DOMAIN):1016
+RACKATTACK_PROVIDER_VIRT = tcp://localhost:1014@@amqp://guest:guest@localhost:1013/%2F@@http://localhost:1016
+
 
 # playaround creates the vm and runs it locally. The first time a newely submitted image is created, this takes 3-5mins
 # during which, the computer is fully utilized (so it will feel a bit slugish)
