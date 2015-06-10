@@ -95,7 +95,7 @@ RACKATTACK_PROVIDER_VIRT = tcp://localhost:1014@@amqp://guest:guest@localhost:10
 # once the ssh session is closed, the VM frees up automatically. the root credentials are printed on screen.
 # use this to playaround yum commands and such, before writing them down to the makefile
 playaround:
-	RACKATTACK_PROVIDER=tcp://localhost:1014@tcp://localhost:1015@tcp://localhost:1016 PYTHONPATH=../rackattack-api/py python ../rackattack-api/py/rackattack/playaround.py --label=solvent__rootfs-netlib-subsys__rootfs__$(HASH)__dirty --user=maor
+	RACKATTACK_PROVIDER=$(RACKATTACK_PROVIDER_VIRT) PYTHONPATH=../rackattack-api/py python ../rackattack-api/py/rackattack/playaround.py --label=solvent__rootfs-netlib-subsys__rootfs__$(HASH)__dirty --user=maor
 physplayaround:
 	RACKATTACK_PROVIDER=$(RACKATTACK_PROVIDER_PHYS) PYTHONPATH=../rackattack-api/py python ../rackattack-api/py/rackattack/playaround.py --label=solvent__rootfs-netlib-subsys__rootfs__$(HASH)__dirty --user=maor
 
