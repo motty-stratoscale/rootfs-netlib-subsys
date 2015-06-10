@@ -56,8 +56,7 @@ $(ROOTFS): distrato_sync
 	sudo rm $(ROOTFS_TMP)/etc/systemd/system/multi-user.target.wants/consul.service -f
 	sudo rm $(ROOTFS_TMP)/etc/systemd/system/multi-user.target.wants/strato-noded.service -f
 	echo "Copying version and release notes"
-	mkdir -p build/version
-	sudo cp deployment/strato_version.txt $(ROOTFS_TMP)/etc/strato_version.txt
+	sudo echo -e "{'Label': 'Goltz', 'ReleaseNotes': 'datalayer-rootfs', 'Version': '6.6.6.deadbeef'}" | sudo tee --append  $(ROOTFS_TMP)/etc/strato-version.yaml
 	echo "Copying services configuration"
 	sudo cp py/strato/installation/services.yaml $(ROOTFS).tmp/etc/stratoscale/services.yaml
 	sudo -E PYTHONPATH=py/:. python main.py $(ROOTFS_TMP)
