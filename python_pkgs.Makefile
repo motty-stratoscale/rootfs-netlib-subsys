@@ -1,1 +1,2 @@
 PYTHON_PACKAGES_TO_INSTALL = \	
+	'lockfile==0.10.2'
