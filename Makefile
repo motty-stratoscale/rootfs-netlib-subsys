@@ -40,7 +40,7 @@ $(ROOTFS): distrato_sync
 	sudo mkdir $(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)
 
 	sudo -E solvent bring --repositoryBasename=strato-kmods --product=rpms --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)strato-kmods
-	sudo -E solvent bring --repositoryBasename=openstackapi --product=rpms --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)openstackapi
+	sudo -E solvent bring --repositoryBasename=consulate --product=rpms --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)consulate
 	sudo -E solvent bring --repositoryBasename=loggingtools --product=rpm --destination=$(ROOTFS_TMP)$(NETLIB_RPMS_CHROOT_PATH)log
 	
 	sudo rm -rf $(ROOTFS_TMP)$(EXTERNAL_RPMS_CHROOT_PATH)
